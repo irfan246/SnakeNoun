@@ -10490,14 +10490,19 @@
           "children": []
         },
         {
-          "name": "jawabanfinal",
-          "type": "string",
-          "value": ""
-        },
-        {
           "name": "LoopIndex",
           "type": "number",
           "value": 0
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "value": 0
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "value": ""
         }
       ],
       "instances": [
@@ -10789,6 +10794,22 @@
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "keepRatio": true,
+          "layer": "",
+          "name": "Text_Soal3",
+          "persistentUuid": "6e2aae7c-af2c-425a-82dd-a36c77fd995b",
+          "width": 0,
+          "x": 472,
+          "y": -2,
+          "zOrder": 30,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
         }
       ],
       "objects": [
@@ -10833,9 +10854,9 @@
           "effects": [],
           "behaviors": [
             {
-              "checkCollisionMask": false,
               "name": "Draggable",
-              "type": "DraggableBehavior::Draggable"
+              "type": "DraggableBehavior::Draggable",
+              "checkCollisionMask": false
             },
             {
               "name": "ScreenWrap",
@@ -15508,6 +15529,49 @@
               ]
             }
           ]
+        },
+        {
+          "assetStoreId": "",
+          "bold": true,
+          "italic": false,
+          "name": "Text_Soal3",
+          "smoothed": true,
+          "type": "TextObject::Text",
+          "underlined": false,
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "string": "",
+          "font": "LilitaOne-Regular.ttf",
+          "textAlignment": "center",
+          "characterSize": 64,
+          "color": {
+            "b": 255,
+            "g": 255,
+            "r": 255
+          },
+          "content": {
+            "bold": true,
+            "isOutlineEnabled": true,
+            "isShadowEnabled": false,
+            "italic": false,
+            "outlineColor": "0;174;239",
+            "outlineThickness": 10,
+            "shadowAngle": 90,
+            "shadowBlurRadius": 2,
+            "shadowColor": "0;0;0",
+            "shadowDistance": 4,
+            "shadowOpacity": 127,
+            "smoothed": true,
+            "underlined": false,
+            "text": "",
+            "font": "LilitaOne-Regular.ttf",
+            "textAlignment": "center",
+            "verticalTextAlignment": "top",
+            "characterSize": 64,
+            "lineHeight": 0,
+            "color": "255;255;255"
+          }
         }
       ],
       "objectsFolderStructure": {
@@ -15607,6 +15671,9 @@
             "objectName": "Text_Soal2"
           },
           {
+            "objectName": "Text_Soal3"
+          },
+          {
             "objectName": "obj_strip"
           },
           {
@@ -15631,7 +15698,6 @@
           "type": "BuiltinCommonInstructions::Group",
           "events": [
             {
-              "folded": true,
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
@@ -15769,22 +15835,22 @@
                 },
                 {
                   "type": {
+                    "value": "SetStringVariable"
+                  },
+                  "parameters": [
+                    "text",
+                    "=",
+                    "\"\""
+                  ]
+                },
+                {
+                  "type": {
                     "value": "SetNumberVariable"
                   },
                   "parameters": [
                     "spawn",
                     "=",
                     "1"
-                  ]
-                },
-                {
-                  "type": {
-                    "value": "SetStringVariable"
-                  },
-                  "parameters": [
-                    "jawabanfinal",
-                    "=",
-                    "\"\""
                   ]
                 }
               ],
@@ -16166,35 +16232,18 @@
               "conditions": [
                 {
                   "type": {
-                    "value": "BuiltinCommonInstructions::Or"
+                    "value": "CollisionNP"
                   },
-                  "parameters": [],
-                  "subInstructions": [
-                    {
-                      "type": {
-                        "value": "CollisionNP"
-                      },
-                      "parameters": [
-                        "ular1",
-                        "huruf_huruf",
-                        "",
-                        "",
-                        ""
-                      ]
-                    }
+                  "parameters": [
+                    "ular1",
+                    "huruf_huruf",
+                    "",
+                    "",
+                    ""
                   ]
                 }
               ],
               "actions": [
-                {
-                  "type": {
-                    "value": "PushString"
-                  },
-                  "parameters": [
-                    "jawaban",
-                    "huruf_huruf.Animation::Name()"
-                  ]
-                },
                 {
                   "type": {
                     "value": "Delete"
@@ -16203,12 +16252,21 @@
                     "huruf_huruf",
                     ""
                   ]
+                },
+                {
+                  "type": {
+                    "value": "PushString"
+                  },
+                  "parameters": [
+                    "jawaban",
+                    "huruf_huruf.Animation::Name()"
+                  ]
                 }
               ],
               "events": [
                 {
                   "type": "BuiltinCommonInstructions::Repeat",
-                  "repeatExpression": "VariableChildCount(jawaban)",
+                  "repeatExpression": "1",
                   "conditions": [],
                   "actions": [
                     {
@@ -16216,9 +16274,9 @@
                         "value": "SetStringVariable"
                       },
                       "parameters": [
-                        "jawabanfinal",
+                        "text",
                         "=",
-                        "jawabanfinal + jawaban[LoopIndex]"
+                        "text + jawaban[LoopIndex]"
                       ]
                     },
                     {
@@ -16230,15 +16288,22 @@
                         "+",
                         "1"
                       ]
-                    },
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
                     {
                       "type": {
-                        "value": "DebuggerTools::ConsoleLog"
+                        "value": "TextContainerCapability::TextContainerBehavior::SetValue"
                       },
                       "parameters": [
-                        "jawabanfinal",
-                        "\"info\"",
-                        ""
+                        "Text_Soal3",
+                        "Text",
+                        "=",
+                        "text"
                       ]
                     }
                   ]
@@ -16258,7 +16323,6 @@
           "type": "BuiltinCommonInstructions::Group",
           "events": [
             {
-              "disabled": true,
               "folded": true,
               "type": "BuiltinCommonInstructions::Repeat",
               "repeatExpression": "3",
@@ -16392,53 +16456,6 @@
                       ]
                     }
                   ]
-                },
-                {
-                  "infiniteLoopWarning": true,
-                  "type": "BuiltinCommonInstructions::While",
-                  "whileConditions": [
-                    {
-                      "type": {
-                        "value": "AjoutObjConcern"
-                      },
-                      "parameters": [
-                        "",
-                        "huruf_huruf2"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "AjoutObjConcern"
-                      },
-                      "parameters": [
-                        "",
-                        "huruf_huruf"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "AnimatableCapability::AnimatableBehavior::Name"
-                      },
-                      "parameters": [
-                        "huruf_huruf2",
-                        "Animation",
-                        "=",
-                        "huruf_huruf.Animation::Name()"
-                      ]
-                    }
-                  ],
-                  "conditions": [],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "Delete"
-                      },
-                      "parameters": [
-                        "huruf_huruf2",
-                        ""
-                      ]
-                    }
-                  ]
                 }
               ]
             },
@@ -16448,13 +16465,9 @@
               "conditions": [
                 {
                   "type": {
-                    "value": "BuiltinCommonInstructions::CompareNumbers"
+                    "value": "BuiltinCommonInstructions::Once"
                   },
-                  "parameters": [
-                    "SceneInstancesCount(huruf_huruf)",
-                    "<",
-                    "jumlahHuruf "
-                  ]
+                  "parameters": []
                 }
               ],
               "actions": [
@@ -16545,30 +16558,100 @@
                   ]
                 },
                 {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [
+                  "infiniteLoopWarning": true,
+                  "type": "BuiltinCommonInstructions::While",
+                  "whileConditions": [
                     {
                       "type": {
-                        "value": "BuiltinCommonInstructions::CompareNumbers"
+                        "value": "AjoutObjConcern"
                       },
                       "parameters": [
-                        "SceneInstancesCount(huruf_huruf)",
-                        ">",
-                        "jumlahHuruf "
+                        "",
+                        "huruf_huruf"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "CollisionNP"
+                      },
+                      "parameters": [
+                        "huruf_huruf",
+                        "ular1",
+                        "",
+                        "",
+                        ""
                       ]
                     }
                   ],
+                  "conditions": [],
                   "actions": [
                     {
                       "type": {
-                        "value": "SetNumberVariable"
+                        "value": "ClearVariableChildren"
                       },
                       "parameters": [
-                        "counter",
-                        "+",
-                        "0"
+                        "jawaban"
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "MettreXY"
+                      },
+                      "parameters": [
+                        "huruf_huruf",
+                        "=",
+                        "RandomInRange(274, 993)",
+                        "=",
+                        "RandomInRange(199, 546)"
                       ]
                     }
+                  ]
+                }
+              ]
+            },
+            {
+              "infiniteLoopWarning": true,
+              "type": "BuiltinCommonInstructions::While",
+              "whileConditions": [
+                {
+                  "type": {
+                    "value": "AjoutObjConcern"
+                  },
+                  "parameters": [
+                    "",
+                    "huruf_huruf2"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "AjoutObjConcern"
+                  },
+                  "parameters": [
+                    "",
+                    "huruf_huruf"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "AnimatableCapability::AnimatableBehavior::Name"
+                  },
+                  "parameters": [
+                    "huruf_huruf2",
+                    "Animation",
+                    "=",
+                    "huruf_huruf.Animation::Name()"
+                  ]
+                }
+              ],
+              "conditions": [],
+              "actions": [
+                {
+                  "type": {
+                    "value": "Delete"
+                  },
+                  "parameters": [
+                    "huruf_huruf2",
+                    ""
                   ]
                 }
               ]
@@ -16958,6 +17041,31 @@
                   "parameters": [
                     "",
                     "\"Untitled scene\"",
+                    ""
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "BuiltinCommonInstructions::CompareStrings"
+                  },
+                  "parameters": [
+                    "ToJSON(HurufSoal)",
+                    "=",
+                    "ToJSON(jawaban)"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "Quit"
+                  },
+                  "parameters": [
                     ""
                   ]
                 }
